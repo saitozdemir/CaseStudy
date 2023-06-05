@@ -1,5 +1,4 @@
-﻿using CaseStudy.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -8,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System;
+using CaseStudy.Context;
 
 namespace CaseStudy.Controllers
 {

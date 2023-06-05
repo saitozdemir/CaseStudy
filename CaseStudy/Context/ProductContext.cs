@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CaseStudy.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace CaseStudy.Models
+namespace CaseStudy.Context
 {
     public class ProductContext : DbContext
     {

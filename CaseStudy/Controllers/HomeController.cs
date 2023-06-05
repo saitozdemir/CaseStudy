@@ -1,4 +1,5 @@
-﻿using CaseStudy.Models;
+﻿using CaseStudy.Context;
+using CaseStudy.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
