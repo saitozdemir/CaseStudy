@@ -1,0 +1,17 @@
+﻿@model CaseStudy.Models.Products
+@{
+    ViewData["Title"] = "ProductUpdate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Ürün Güncelleme</h1>
+
+<form asp-action="ProductUpdate" method="post">
+    <input type="hidden" asp-for="@Model.ProductId" />
+    <input class="form-control mb-4" asp-for="@Model.ProductName" />
+    <input class="form-control mb-8" asp-for="@Model.ProductPrice" />
+    <input class="form-control mb-8" asp-for="@Model.StockPiece" />
+    <input class="form-control mb-2" asp-for="@Model.ProductStatement" />
+
+    <button class="btn btn-info" type="submit">Ürün Güncelle</button>
+</form>

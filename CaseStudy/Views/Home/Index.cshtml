@@ -1,0 +1,55 @@
+﻿@using System.Data
+@using CaseStudy.Models;
+@model DataTable
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">
+    Ürün Ekle
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ürün Ekle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-body">
+                <form asp-action="Index" method="post">
+                    <input type="hidden" name="ProductId" />
+                    <input type="text" placeholder="Ürün Adı" class="form-control mb-4" name="ProductName" />
+                    <input type="number" placeholder="Ürün Fiyatı" class="form-control mb-8" name="ProductPrice" />
+                    <input type="number" placeholder="Ürün Stok Adedi" class="form-control mb-8" name="StokPiece" />
+                    <input type="text" placeholder="Ürün Açıklaması" class="form-control mb-2" name="ProductStatement" />
+                    <button class="btn btn-success" type="submit">Ürün Ekle</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped table-hover">
+    @foreach (var item in ViewBag.ProductList as List<Products>)
+    {
+        <tr>
+            <td>@item.ProductName</td>
+            <td>@item.ProductPrice TL</td>
+            <td>@item.StockPiece Adet</td>
+            <td>@item.ProductStatement</td>
+            <td><a class="btn btn-info" asp-action="ProductUpdate" asp-route-id="@item.ProductId">Ürün Güncelle</a></td>
+            <td><a class="btn btn-danger" asp-action="ProductDelete" asp-route-id="@item.ProductId">Sil</a></td>
+        </tr>
+    }
+</table>
