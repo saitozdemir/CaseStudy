@@ -1,15 +1,51 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CaseStudy.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System.Data;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System;
 
 namespace CaseStudy.Controllers
 {
     public class OrderController : Controller
     {
-        // GET: OrderController
-        public ActionResult Index()
+        private readonly ILogger<OrderController> _logger;
+        public readonly ProductContext _context;
+        string baseUrl = "https://localhost:44386/";
+
+        public OrderController(ILogger<OrderController> logger, ProductContext context)
         {
+            _logger = logger;
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            DataTable dt = new DataTable();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage getData = await client.GetAsync("Products");
+
+                if (getData.IsSuccessStatusCode)
+                {
+                    string results = getData.Content.ReadAsStringAsync().Result;
+                    dt = JsonConvert.DeserializeObject<DataTable>(results);
+                }
+                ViewData.Model = dt;
+
+            }
             return View();
         }
+        
 
         // GET: OrderController/Details/5
         public ActionResult Details(int id)

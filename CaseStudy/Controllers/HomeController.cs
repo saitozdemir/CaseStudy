@@ -15,7 +15,6 @@ namespace CaseStudy.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         public readonly ProductContext _context;
-        string baseUrl = "https://localhost:44386/";
 
         public HomeController(ILogger<HomeController> logger, ProductContext context)
         {
@@ -26,23 +25,6 @@ namespace CaseStudy.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            DataTable dt = new DataTable();
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(baseUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage getData = await client.GetAsync("Products");
-
-                if (getData.IsSuccessStatusCode)
-                {
-                    string results = getData.Content.ReadAsStringAsync().Result;
-                    dt = JsonConvert.DeserializeObject<DataTable>(results);
-                }
-                ViewData.Model = dt;
-
-            }
             ViewBag.ProductList = _context.Products.ToList();
             return View();
         }
